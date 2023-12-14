@@ -1,8 +1,8 @@
 import { Box, Button } from '@mui/material'
 import React from 'react'
 import NavBar from '../../Components/NavBar/NavBar'
-import EachCard from '../EachCard/EachCard'
-import ManagerCard from '../ManagerCard/ManagerCard'
+import EachCard from '../../Components/EachCard/EachCard'
+import ManagerCard from '../../Components/ManagerCard/ManagerCard'
 
 const HomePage = () => {
   return (
