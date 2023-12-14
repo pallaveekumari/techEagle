@@ -9,8 +9,7 @@ import Login from './Routes/Login/Login';
 function App() {
   return (
    <AllRoutes/>
- 
-  );
+   );
 }
 
 export default App;

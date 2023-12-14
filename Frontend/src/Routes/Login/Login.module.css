@@ -29,7 +29,10 @@
 }
 
 .backBox{
-    height: 100%;
+    height: 100vh;
     width: 100%;
     background-image: url("https://circuitdigest.com/sites/default/files/inlineimages/u4/TechEagle-Drone.jpg");
+background-repeat: no-repeat;
+background-size: cover;
+background-position: center;
 }

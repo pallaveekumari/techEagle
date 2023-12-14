@@ -4,7 +4,7 @@ import styles from "../Login/Login.module.css"
 import NavBar from '../../Components/NavBar/NavBar'
 const Login = () => {
   return (
-    <Box >
+    <Box className={styles.backBox}>
      <NavBar/>
     <Box className={styles.container}>
   
