@@ -1,16 +1,16 @@
 .container{
-    height: 32rem;
+    /* height: 32rem; */
     width: 50%;
  
     margin: auto;
     border: 1px solid rgb(141, 141, 206);
-    margin-top: 1rem;
+    margin-top: 0.5rem;
    
     border-radius: 10px;
 
     background-image: url("https://www.imageshine.in/uploads/gallery/Pink-Color-Background-images-free-download.jpg");
 
-
+padding: 1rem;
 }
 
 .childContainer{
@@ -29,6 +29,7 @@
    
     justify-content: center;
     align-items: center;
+    margin-top: -1rem;
 }
 .firstcontainer{
     display: flex;
@@ -36,4 +37,5 @@
     justify-content: center;
     align-items: center;
     color: white;
+    margin-top: -0.5rem;
 }
