@@ -16,8 +16,8 @@ const EachCard = () => {
      </Box>
      <Box>weight</Box>
      <Box>price</Box>
-     <Box>addtocart</Box>
-     <Box>Place Order</Box>
+     <Box className={styles.addtocartBox}>Add To Cart</Box>
+     <Box className={styles.placeorderBox}>Place Order</Box>
     </Box>
   )
 }

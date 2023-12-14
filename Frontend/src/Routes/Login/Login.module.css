@@ -1,0 +1,29 @@
+.container{
+    height: 20rem;
+    width: 40%;
+ 
+    margin: auto;
+    border: 1px solid rgb(141, 141, 206);
+    margin-top: 2rem;
+   
+    border-radius: 10px;
+
+    background-image: url("https://www.imageshine.in/uploads/gallery/Pink-Color-Background-images-free-download.jpg");
+
+
+}
+
+.childContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.heading{
+    display: flex;
+   
+    justify-content: center;
+    align-items: center;
+}

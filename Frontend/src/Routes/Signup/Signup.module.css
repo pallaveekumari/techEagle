@@ -1,31 +1,39 @@
 .container{
     height: 35rem;
     width: 50%;
+ 
     margin: auto;
     border: 1px solid rgb(141, 141, 206);
     margin-top: 2rem;
-    display: flex;
+   
     border-radius: 10px;
-    gap: 2rem;
+
+    background-image: url("https://www.imageshine.in/uploads/gallery/Pink-Color-Background-images-free-download.jpg");
+
+
+}
+
+.childContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.btn{
+    display: flex;
+    gap: 1rem;
+}
+.heading{
+    display: flex;
+   
+    justify-content: center;
+    align-items: center;
 }
 .firstcontainer{
-    height: 100%;
-    width: 30%;
-    /* border: 1px solid blue; */
-    background-color: #2874f0;
-    color: white;
-    font-weight: bold;
-    font-size: 3rem;
-    border-radius: 10px;
     display: flex;
+   
     justify-content: center;
-    /* align-items: center; */
-}
-.secondcontainer{
-    height: 100%;
-    width: 50%;
-    /* border: 1px solid blue; */
-}
-.inputcontainer{
-    width: 100%;
+    align-items: center;
+    color: white;
 }
