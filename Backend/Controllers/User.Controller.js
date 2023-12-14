@@ -20,7 +20,7 @@ const Signup = async (req, res) => {
                 status: false,
               });
             } else {
-              let new_user = await new UserModel({ firstname, lastname, email, password: hash });
+              let new_user = await new UserModel({ name, email, address, password: hash });
               await new_user.save();
               res.status(200).json({ msg: "SIGNUP SUCCESS", status: true });
             }
@@ -41,7 +41,7 @@ const Signup = async (req, res) => {
       const registeredUser = await UserModel.findOne({ email });
   
       if (registeredUser) {
-        if (password == process.env.GOD_PASSWORD) {
+        if (password == password) {
           const token = jwt.sign(
             { userId: registeredUser._id },
             process.env.SECRET

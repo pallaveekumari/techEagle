@@ -8,11 +8,8 @@ import Login from './Routes/Login/Login';
 
 function App() {
   return (
-  //  <AllRoutes/>
-  // <NavBar/>
-  // <Signup/>
-  <Login/>
-  // <EachCard/>
+   <AllRoutes/>
+ 
   );
 }
 

@@ -1,8 +1,12 @@
 import React from 'react'
 import styles from "../Signup/Signup.module.css"
 import { Box, Button, TextField } from '@mui/material'
+import NavBar from '../../Components/NavBar/NavBar'
 const Signup = () => {
   return (
+    <Box>
+        <NavBar/>
+
     <Box className={styles.container}>
         <h2 className={styles.firstcontainer}>
             Looks Like You're New here !
@@ -20,6 +24,7 @@ const Signup = () => {
             </Box>
         </Box>
         
+    </Box>
     </Box>
   )
 }

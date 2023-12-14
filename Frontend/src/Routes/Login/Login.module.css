@@ -27,3 +27,9 @@
     justify-content: center;
     align-items: center;
 }
+
+.backBox{
+    height: 100%;
+    width: 100%;
+    background-image: url("https://circuitdigest.com/sites/default/files/inlineimages/u4/TechEagle-Drone.jpg");
+}
