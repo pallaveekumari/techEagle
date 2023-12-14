@@ -8,7 +8,6 @@ const authorisation = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
   jwt.verify(token, process.env.SECRET, (err, decoded) => {
     if (err) {
-
       res.status(400).json({ msg: "NOT AUTHORISED PLEASE LOGIN" });
     } else {
       req.body.userId = decoded.userId;
