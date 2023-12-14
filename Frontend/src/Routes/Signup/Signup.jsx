@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-// import Cookies from "js-cookie";
+
 import styles from "../Signup/Signup.module.css";
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import NavBar from "../../Components/NavBar/NavBar";

@@ -1,7 +1,10 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./EachCard.module.css";
-const EachCard = () => {
+import { AppContext } from "../../Context/AppContext";
+const EachCard = ({ el, placeofcall }) => {
+  const { handleAddToCart, handleqty, handleDeleteData } =
+    useContext(AppContext);
   return (
     <Box className={styles.container}>
       <Box className={styles.imagebox}>
@@ -19,11 +22,46 @@ const EachCard = () => {
       <Box className={styles.descrBox}>Weight:</Box>
       <Box className={styles.descrBox}>RS:</Box>
       <Box className={styles.qtyBox}>
-        <Box>+</Box>
+        <Box
+          onClick={async () => {
+            let response = await handleqty(el._id, 1);
+          }}
+        >
+          +
+        </Box>
         <Box>Qty</Box>
-        <Box>-</Box>
+        {/* <Box disabled={el.qty === 1} */}
+        <Box
+          onClick={async () => {
+            let response = await handleqty(el._id, -1);
+          }}
+        >
+          -
+        </Box>
       </Box>
-      <Box className={styles.addtocartBox}>Add To Cart</Box>
+      <Box
+        className={styles.addtocartBox}
+        onClick={() => {
+          handleAddToCart(el);
+          alert("Item added to your cart");
+        }}
+      >
+        Add To Cart
+      </Box>
+      <Box
+        className={styles.addtocartBox}
+        onClick={async () => {
+          let response = await handleDeleteData(el._id);
+          // if (response.status == true) {
+          //   alert(response.msg);
+          //   handleGetAllCartData();
+          // } else {
+          //   alert(response.msg);
+          // }
+        }}
+      >
+        DELETE
+      </Box>
     </Box>
   );
 };

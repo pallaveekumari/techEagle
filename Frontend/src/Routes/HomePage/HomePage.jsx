@@ -9,8 +9,8 @@ const HomePage = () => {
     <Box>
         <NavBar/>
         <Button>Homepage</Button>
-        {/* <EachCard/> */}
-        <ManagerCard/>
+        <EachCard/>
+        {/* <ManagerCard/> */}
     </Box>
   )
 }
