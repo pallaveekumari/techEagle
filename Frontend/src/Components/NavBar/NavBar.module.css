@@ -1,0 +1,35 @@
+.navbox{
+    height: 5rem;
+    width: 100%;
+    border: 1px solid teal;
+    background-color: #2874f0;
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+}
+.imgBox{
+    height: 4rem;
+    width: 5rem;
+    
+    border-radius: 15px;
+    
+}
+.imgBox:hover{
+    cursor: pointer;
+}
+.imgBoxImg{
+    height: 100%;
+    width: 100%;
+    border-radius: 15px;
+}
+.cartbox{
+    color: white;
+    font-weight: bold;
+    display: flex;
+    /* justify-content: space-around; */
+    align-items: center;
+    gap: 2rem;
+}
+.cartbox:hover{
+    cursor: pointer;
+}
