@@ -17,6 +17,8 @@ const AppContextProvider = ({ children }) => {
   const [myorderdata,setmyorderdata]=useState([])
   const [plusQtyBtnLoading,setplusQtyBtnLoading]=useState(false)
   const [minusQtyBtnLoading,setminusQtyBtnLoading]=useState(false)
+  const [OrdersPlacedLoading,setOrdersPlacedLoading]=useState(false)
+  const [myorderplaceddata,setmyorderplaceddata]=useState([])
   const handleAddsign = async (signupdata) => {
     try {
       setsignupBtnLoading(true);
@@ -174,6 +176,28 @@ const AppContextProvider = ({ children }) => {
       return err.response.data;
     }
   }
+
+
+  const getOrderPlaced=async()=>{
+    try {
+      setOrdersPlacedLoading(true)
+      const token = Cookies.get("token");
+      let data = await axios.post(
+        `https://techeagle-dptt.onrender.com/placeOrder`,cartdata,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setOrdersPlacedLoading(false)
+      setmyorderplaceddata(data.data);
+    } catch (err) {
+      console.log("error", err);
+      setOrdersPlacedLoading(false)
+      return err.response.data;
+    }
+  }
   return (
     <AppContext.Provider
       value={{
@@ -194,7 +218,9 @@ const AppContextProvider = ({ children }) => {
         deleteBtnLoading,
         MyOrdersLoading,
         getMyOrders,
-        myorderdata
+        myorderdata,
+        myorderplaceddata,
+        getOrderPlaced
         
       }}
     >

@@ -1,12 +1,13 @@
 import { Box, Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./NavBar.module.css";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../Context/AppContext";
 
 const NavBar = () => {
   const navigate = useNavigate();
-
+const {cartdata}=useContext(AppContext)
   return (
     <Box className={styles.navbox}>
       <Box
@@ -37,11 +38,16 @@ const NavBar = () => {
         >
           Signup
         </Box>
+      <Box  className={styles.countBox}>
+
+      
         <ShoppingCartIcon
           onClick={() => {
             navigate("/cart");
           }}
-        />
+          />
+        <Box>{cartdata.length}</Box>
+          </Box>
         <Box onClick={() => {
             navigate("/orders");
           }}>My Orders</Box>

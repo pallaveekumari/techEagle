@@ -3,30 +3,29 @@ import React, { useContext } from "react";
 import styles from "./EachCard.module.css";
 import { AppContext } from "../../Context/AppContext";
 const EachCard = ({ el, placeofcall }) => {
-  const { handleAddToCart, handleqty, handleGetAllCartData,handleDeleteData,addToCartBtnLoading } =
-    useContext(AppContext);
+  const {
+    handleAddToCart,
+    handleqty,
+    handleGetAllCartData,
+    handleDeleteData,
+    addToCartBtnLoading,
+  } = useContext(AppContext);
   return (
     <Box className={styles.container}>
       <Box className={styles.imagebox}>
-        <img
-          className={styles.imageboxImg}
-          src={el.image}
-          alt=""
-        />
+        <img className={styles.imageboxImg} src={el.image} alt="" />
       </Box>
-      <Box className={styles.descBox}>
-       {el.description}
-      </Box>
+      <Box className={styles.descBox}>Name: {el.name}</Box>
+      <Box className={styles.descBox}>Desc: {el.description}</Box>
 
       <Box className={styles.descrBox}>Weight: {el.weight}</Box>
       <Box className={styles.descrBox}>RS: {el.price}</Box>
       <Box className={styles.qtyBox}>
-      <Box
-      disabled={el.qty==1}
+        <Box
+          disabled={el.qty == 1}
           onClick={async () => {
             let response = await handleqty(el._id, -1);
             if (response.status) {
-              
               handleGetAllCartData();
             }
           }}
@@ -34,8 +33,7 @@ const EachCard = ({ el, placeofcall }) => {
           -
         </Box>
         <Box>{el.qty}</Box>
-       
-       
+
         <Box
           onClick={async () => {
             let response = await handleqty(el._id, 1);
@@ -47,15 +45,19 @@ const EachCard = ({ el, placeofcall }) => {
           +
         </Box>
       </Box>
-     {addToCartBtnLoading?<CircularProgress/>: <Box
-        className={styles.addtocartBox}
-        onClick={() => {
-          handleAddToCart(el);
-          alert("Item added to your cart");
-        }}
-      >
-        Add To Cart
-      </Box>}
+      {addToCartBtnLoading ? (
+        <CircularProgress />
+      ) : (
+        <Box
+          className={styles.addtocartBox}
+          onClick={() => {
+            handleAddToCart(el);
+            alert("Item added to your cart");
+          }}
+        >
+          Add To Cart
+        </Box>
+      )}
       <Box
         className={styles.addtocartBox}
         onClick={async () => {
@@ -70,6 +72,8 @@ const EachCard = ({ el, placeofcall }) => {
       >
         DELETE
       </Box>
+
+      <Box  className={styles.addtocartBox}>Track Status </Box>
     </Box>
   );
 };

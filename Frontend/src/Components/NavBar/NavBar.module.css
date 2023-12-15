@@ -33,3 +33,8 @@
 .cartbox:hover{
     cursor: pointer;
 }
+.countBox{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
