@@ -5,31 +5,47 @@ import { useNavigate } from "react-router-dom";
 export const AppContext = createContext();
 const AppContextProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [homepageDataloading, sethomepageDataloading] = useState(false);
+  const [loginBtnLoading, setloginBtnLoading] = useState(false);
+  const [signupBtnLoading, setsignupBtnLoading] = useState(false);
+  const [cartdataLoading, setcartdataLoading] = useState(false);
   const [productdata, setproductdata] = useState([]);
+
   const handleAddsign = async (signupdata) => {
     try {
-      let res = await axios.post("https://techeagle-dptt.onrender.com/signup", signupdata);
-
+      signupBtnLoading(true);
+      let res = await axios.post(
+        "https://techeagle-dptt.onrender.com/signup",
+        signupdata
+      );
+      signupBtnLoading(false);
       return res.data;
     } catch (err) {
       console.log("error", err);
+      signupBtnLoading(false);
       return err.response.data;
     }
   };
 
   const handlelogin = async (payload) => {
     try {
-      let res = await axios.post("https://techeagle-dptt.onrender.com/login", payload);
+      loginBtnLoading(true);
+      let res = await axios.post(
+        "https://techeagle-dptt.onrender.com/login",
+        payload
+      );
+      loginBtnLoading(false);
       return res.data;
     } catch (err) {
       console.log("error", err);
+      loginBtnLoading(false);
       return err.response.data;
     }
   };
 
   const handleAddToCart = async (payload) => {
     try {
+      cartdataLoading(true);
       const token = Cookies.get("token");
       if (token) {
         let data = await axios.post(
@@ -42,7 +58,7 @@ const AppContextProvider = ({ children }) => {
           }
         );
         // console.log("data",data);
-
+        cartdataLoading(false);
         return data.data;
       } else {
         alert("You're Not Logged In Please login first!");
@@ -50,6 +66,7 @@ const AppContextProvider = ({ children }) => {
       }
     } catch (err) {
       console.log("error", err);
+      cartdataLoading(false);
       return err.response.data;
     }
   };
@@ -61,11 +78,15 @@ const AppContextProvider = ({ children }) => {
     };
     const token = Cookies.get("token");
     try {
-      let res = await axios.post("https://techeagle-dptt.onrender.com/updateQty", payload, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      let res = await axios.post(
+        "https://techeagle-dptt.onrender.com/updateQty",
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       // console.log("res is ",res);
 
@@ -79,11 +100,14 @@ const AppContextProvider = ({ children }) => {
   const handleDeleteData = async (id) => {
     try {
       const token = Cookies.get("token");
-      let data = await axios.get(`https://techeagle-dptt.onrender.com/removecartdata/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      let data = await axios.get(
+        `https://techeagle-dptt.onrender.com/removecartdata/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       return data.data;
     } catch (err) {
       console.log("error", err);
@@ -92,23 +116,28 @@ const AppContextProvider = ({ children }) => {
   };
 
   const getProductdata = () => {
-    setLoading(true);
-    axios.get(`https://techeagle-dptt.onrender.com/allproducts`)
-       .then((res) => {
-        setproductdata(res.data.data);
-        setLoading(false);
-      });
+    sethomepageDataloading(true);
+    axios.get(`https://techeagle-dptt.onrender.com/allproducts`).then((res) => {
+      setproductdata(res.data.data);
+      sethomepageDataloading(false);
+    });
   };
-
-
-
-
-
-
 
   return (
     <AppContext.Provider
-      value={{ handlelogin, handleAddsign, handleAddToCart, handleqty ,handleDeleteData,getProductdata}}
+      value={{
+        handlelogin,
+        productdata,
+        homepageDataloading,
+        handleAddsign,
+        handleAddToCart,
+        handleqty,
+        handleDeleteData,
+        getProductdata,
+        cartdataLoading,
+        loginBtnLoading,
+        signupBtnLoading
+      }}
     >
       {children}
     </AppContext.Provider>

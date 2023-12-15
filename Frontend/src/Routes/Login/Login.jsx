@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, CircularProgress, TextField } from "@mui/material";
 import React, { useContext, useState } from "react";
 import styles from "../Login/Login.module.css";
 import NavBar from "../../Components/NavBar/NavBar";
@@ -11,7 +11,7 @@ const Login = () => {
     password: ""
   }
   const [loginData,setLoginData]=useState(initial)
-const {handlelogin}=useContext(AppContext)
+const {handlelogin,loginBtnLoading}=useContext(AppContext)
 const handleChange = (e) => {
   const { name, value } = e.target;
 
@@ -28,7 +28,7 @@ const handleChange = (e) => {
         <Box className={styles.childContainer}>
           <TextField placeholder="Enter Email" name="email" type="email" onChange={handleChange} />
           <TextField placeholder="Enter Password" name="password" type="password" onChange={handleChange}/>
-          <Button variant="contained" onClick={async () => {
+          {loginBtnLoading?<CircularProgress/>:<Button variant="contained" onClick={async () => {
               let res = await handlelogin(loginData);
               if (res.status) {
                 alert(res.msg);
@@ -37,7 +37,7 @@ const handleChange = (e) => {
               } else {
                 alert(res.msg);
               }
-            }}>Submit</Button>
+            }}>Submit</Button>}
         </Box>
       </Box>
     </Box>

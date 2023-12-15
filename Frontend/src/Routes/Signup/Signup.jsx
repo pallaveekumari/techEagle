@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 
 import styles from "../Signup/Signup.module.css";
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { Box, Button, CircularProgress, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import NavBar from "../../Components/NavBar/NavBar";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../Context/AppContext";
@@ -15,7 +15,7 @@ const Signup = () => {
     usertype:""
   };
 
-  const { handleAddsign } = useContext(AppContext);
+  const { handleAddsign,signupBtnLoading } = useContext(AppContext);
 
   const [signupData, setSignupData] = useState(initial);
   const handleChange = (e) => {
@@ -81,7 +81,7 @@ const Signup = () => {
   </Select>
 </FormControl>
           <Box className={styles.btn}>
-            <Button
+           {signupBtnLoading?<CircularProgress/>: <Button
               variant="contained"
               onClick={async () => {
                 let res = await handleAddsign(signupData);
@@ -94,7 +94,7 @@ const Signup = () => {
               }}
             >
               Submit
-            </Button>
+            </Button>}
 
             <Button variant="contained">Login</Button>
           </Box>
