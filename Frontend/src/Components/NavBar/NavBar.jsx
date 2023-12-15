@@ -42,7 +42,9 @@ const NavBar = () => {
             navigate("/cart");
           }}
         />
-        <Box>My Orders</Box>
+        <Box onClick={() => {
+            navigate("/orders");
+          }}>My Orders</Box>
       </Box>
     </Box>
   );

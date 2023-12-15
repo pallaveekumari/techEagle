@@ -12,6 +12,11 @@ const AppContextProvider = ({ children }) => {
   const [addToCartBtnLoading, setaddToCartBtnLoading] = useState(false);
   const [productdata, setproductdata] = useState([]);
   const [cartdata, setcartdata] = useState([]);
+  const [deleteBtnLoading,setdeleteBtnLoading]=useState(false)
+  const [MyOrdersLoading,setMyOrdersLoading]=useState(false)
+  const [myorderdata,setmyorderdata]=useState([])
+  const [plusQtyBtnLoading,setplusQtyBtnLoading]=useState(false)
+  const [minusQtyBtnLoading,setminusQtyBtnLoading]=useState(false)
   const handleAddsign = async (signupdata) => {
     try {
       setsignupBtnLoading(true);
@@ -121,6 +126,7 @@ const AppContextProvider = ({ children }) => {
 
   const handleDeleteData = async (id) => {
     try {
+      setdeleteBtnLoading(true)
       const token = Cookies.get("token");
       let data = await axios.get(
         `https://techeagle-dptt.onrender.com/removecartdata/${id}`,
@@ -130,9 +136,11 @@ const AppContextProvider = ({ children }) => {
           },
         }
       );
+      setdeleteBtnLoading(false)
       return data.data;
     } catch (err) {
       console.log("error", err);
+      setdeleteBtnLoading(false)
       return err.response.data;
     }
   };
@@ -145,6 +153,27 @@ const AppContextProvider = ({ children }) => {
     });
   };
 
+
+  const getMyOrders=async()=>{
+   try {
+      setMyOrdersLoading(true)
+      const token = Cookies.get("token");
+      let data = await axios.get(
+        `https://techeagle-dptt.onrender.com/myOrders`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setMyOrdersLoading(false)
+      setmyorderdata(data.data.orders);
+    } catch (err) {
+      console.log("error", err);
+      setMyOrdersLoading(false)
+      return err.response.data;
+    }
+  }
   return (
     <AppContext.Provider
       value={{
@@ -161,7 +190,12 @@ const AppContextProvider = ({ children }) => {
         handleGetAllCartData,
         loginBtnLoading,
         signupBtnLoading,
-        cartdata
+        cartdata,
+        deleteBtnLoading,
+        MyOrdersLoading,
+        getMyOrders,
+        myorderdata
+        
       }}
     >
       {children}

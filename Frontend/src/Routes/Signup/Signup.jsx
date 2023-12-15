@@ -96,7 +96,9 @@ const Signup = () => {
               Submit
             </Button>}
 
-            <Button variant="contained">Login</Button>
+            <Button onClick={()=>{
+              navigate("/login")
+            }}variant="contained">Existing User : Login</Button>
           </Box>
         </Box>
       </Box>
