@@ -5,7 +5,7 @@ const { UserModel } = require("../Models/User.model");
 
 const Signup = async (req, res) => {
   try {
-    const { name, email, address, password } = req.body;
+    const { name, email, address, password,usertype } = req.body;
     let existingUser = await UserModel.find({ email });
     if (existingUser.length > 0) {
       res.status(400).json({ msg: "USER ALREADY REGISTERED", status: false });
@@ -23,6 +23,7 @@ const Signup = async (req, res) => {
               name,
               email,
               address,
+              usertype,
               password: hash,
             });
             await new_user.save();
@@ -40,7 +41,7 @@ const Signup = async (req, res) => {
 
 const Login = async (req, res) => {
   try {
-    // console.log('body is ',req.body)
+    
     const { email, password } = await req.body;
     const registeredUser = await UserModel.findOne({ email });
 
