@@ -1,0 +1,11 @@
+.container{
+    height: 30rem;
+    width: 100%;
+    /* border: 1px solid red; */
+    
+}
+.containerimg{
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+}

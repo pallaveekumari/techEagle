@@ -5,10 +5,11 @@ import { useNavigate } from "react-router-dom";
 export const AppContext = createContext();
 const AppContextProvider = ({ children }) => {
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(false);
+  const [productdata, setproductdata] = useState([]);
   const handleAddsign = async (signupdata) => {
     try {
-      let res = await axios.post("http://localhost:8000/signup", signupdata);
+      let res = await axios.post("https://techeagle-dptt.onrender.com/signup", signupdata);
 
       return res.data;
     } catch (err) {
@@ -19,7 +20,7 @@ const AppContextProvider = ({ children }) => {
 
   const handlelogin = async (payload) => {
     try {
-      let res = await axios.post("http://localhost:8000/login", payload);
+      let res = await axios.post("https://techeagle-dptt.onrender.com/login", payload);
       return res.data;
     } catch (err) {
       console.log("error", err);
@@ -32,7 +33,7 @@ const AppContextProvider = ({ children }) => {
       const token = Cookies.get("token");
       if (token) {
         let data = await axios.post(
-          "http://localhost:8000/addtocart",
+          "https://techeagle-dptt.onrender.com/addtocart",
           payload,
           {
             headers: {
@@ -60,7 +61,7 @@ const AppContextProvider = ({ children }) => {
     };
     const token = Cookies.get("token");
     try {
-      let res = await axios.post("http:/localhost:8000/updateQty", payload, {
+      let res = await axios.post("https://techeagle-dptt.onrender.com/updateQty", payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -78,7 +79,7 @@ const AppContextProvider = ({ children }) => {
   const handleDeleteData = async (id) => {
     try {
       const token = Cookies.get("token");
-      let data = await axios.get(`http:/localhost:8000/removecartdata/${id}`, {
+      let data = await axios.get(`https://techeagle-dptt.onrender.com/removecartdata/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -89,9 +90,25 @@ const AppContextProvider = ({ children }) => {
       return err.response.data;
     }
   };
+
+  const getProductdata = () => {
+    setLoading(true);
+    axios.get(`https://techeagle-dptt.onrender.com/allproducts`)
+       .then((res) => {
+        setproductdata(res.data.data);
+        setLoading(false);
+      });
+  };
+
+
+
+
+
+
+
   return (
     <AppContext.Provider
-      value={{ handlelogin, handleAddsign, handleAddToCart, handleqty ,handleDeleteData}}
+      value={{ handlelogin, handleAddsign, handleAddToCart, handleqty ,handleDeleteData,getProductdata}}
     >
       {children}
     </AppContext.Provider>
