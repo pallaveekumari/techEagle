@@ -59,13 +59,30 @@ const updateStatusOfProduct = async (req, res) => {
    res.status(500).json({ msg: "FAILED TO UPDATE THE STATUS OF PRODUCT" });
  }
 };
-
+const getAllOrdersByCustomers = async (req, res) => {
+    try {
+      let payload = req.body;
+      let user = await UserModel.findOne({ _id: payload.userId });
+      if (user.usertype == "customer") {
+        res
+          .status(400)
+          .json({ msg: "YOU ARE NOT AUTHORISED TO DO THIS OPERATION" });
+      } else {
+        let orders = await OrderModel.find();
+        res.status(200).json({ allOrders: orders });
+      }
+    } catch (err) {
+      res.status(500).json({ msg: "FAILED TO GET ALL ORDERS" });
+    }
+   };
+   
 
 module.exports = {
  orderPlaceByCustomer,
  trackOrderWithStatus,
  getMyOrders,
- updateStatusOfProduct
+ updateStatusOfProduct,
+ getAllOrdersByCustomers
 };
 
 
