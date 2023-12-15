@@ -1,9 +1,9 @@
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import React, { useContext } from "react";
 import styles from "./EachCard.module.css";
 import { AppContext } from "../../Context/AppContext";
 const EachCard = ({ el, placeofcall }) => {
-  const { handleAddToCart, handleqty, handleDeleteData } =
+  const { handleAddToCart, handleqty, handleDeleteData,addToCartBtnLoading } =
     useContext(AppContext);
   return (
     <Box className={styles.container}>
@@ -39,7 +39,7 @@ const EachCard = ({ el, placeofcall }) => {
           -
         </Box>
       </Box>
-      <Box
+     {addToCartBtnLoading?<CircularProgress/>: <Box
         className={styles.addtocartBox}
         onClick={() => {
           handleAddToCart(el);
@@ -47,7 +47,7 @@ const EachCard = ({ el, placeofcall }) => {
         }}
       >
         Add To Cart
-      </Box>
+      </Box>}
       <Box
         className={styles.addtocartBox}
         onClick={async () => {

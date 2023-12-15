@@ -28,7 +28,8 @@ const handleChange = (e) => {
         <Box className={styles.childContainer}>
           <TextField placeholder="Enter Email" name="email" type="email" onChange={handleChange} />
           <TextField placeholder="Enter Password" name="password" type="password" onChange={handleChange}/>
-          {loginBtnLoading?<CircularProgress/>:<Button variant="contained" onClick={async () => {
+          {loginBtnLoading?<CircularProgress/>:
+          <Button variant="contained" onClick={async () => {
               let res = await handlelogin(loginData);
               if (res.status) {
                 alert(res.msg);

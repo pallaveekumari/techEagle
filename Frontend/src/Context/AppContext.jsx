@@ -9,43 +9,44 @@ const AppContextProvider = ({ children }) => {
   const [loginBtnLoading, setloginBtnLoading] = useState(false);
   const [signupBtnLoading, setsignupBtnLoading] = useState(false);
   const [cartdataLoading, setcartdataLoading] = useState(false);
+  const [addToCartBtnLoading, setaddToCartBtnLoading] = useState(false);
   const [productdata, setproductdata] = useState([]);
-
+  const [cartdata, setcartdata] = useState([]);
   const handleAddsign = async (signupdata) => {
     try {
-      signupBtnLoading(true);
+      setsignupBtnLoading(true);
       let res = await axios.post(
         "https://techeagle-dptt.onrender.com/signup",
         signupdata
       );
-      signupBtnLoading(false);
+      setsignupBtnLoading(false);
       return res.data;
     } catch (err) {
       console.log("error", err);
-      signupBtnLoading(false);
+      setsignupBtnLoading(false);
       return err.response.data;
     }
   };
 
   const handlelogin = async (payload) => {
     try {
-      loginBtnLoading(true);
+      setloginBtnLoading(true);
       let res = await axios.post(
         "https://techeagle-dptt.onrender.com/login",
         payload
       );
-      loginBtnLoading(false);
+      setloginBtnLoading(false);
       return res.data;
     } catch (err) {
       console.log("error", err);
-      loginBtnLoading(false);
+      setloginBtnLoading(false);
       return err.response.data;
     }
   };
 
   const handleAddToCart = async (payload) => {
     try {
-      cartdataLoading(true);
+      setaddToCartBtnLoading(true);
       const token = Cookies.get("token");
       if (token) {
         let data = await axios.post(
@@ -58,7 +59,7 @@ const AppContextProvider = ({ children }) => {
           }
         );
         // console.log("data",data);
-        cartdataLoading(false);
+        setaddToCartBtnLoading(false);
         return data.data;
       } else {
         alert("You're Not Logged In Please login first!");
@@ -66,10 +67,31 @@ const AppContextProvider = ({ children }) => {
       }
     } catch (err) {
       console.log("error", err);
-      cartdataLoading(false);
+      setaddToCartBtnLoading(false);
       return err.response.data;
     }
   };
+
+
+  const handleGetAllCartData = async () => {
+    try {
+      setcartdataLoading(true)
+      const token = Cookies.get("token");
+      let data = await axios.get("https://techeagle-dptt.onrender.com/getcartdata", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      //  console.log(data)
+      setcartdata(data.data.cartData);
+      setcartdataLoading(false)
+    } catch (err) {
+      console.log(err);
+      setcartdataLoading(false);
+    }
+  }; 
+
 
   const handleqty = async (id, amount) => {
     const payload = {
@@ -135,8 +157,11 @@ const AppContextProvider = ({ children }) => {
         handleDeleteData,
         getProductdata,
         cartdataLoading,
+        addToCartBtnLoading,
+        handleGetAllCartData,
         loginBtnLoading,
-        signupBtnLoading
+        signupBtnLoading,
+        cartdata
       }}
     >
       {children}
