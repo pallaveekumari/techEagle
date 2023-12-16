@@ -20,7 +20,7 @@ const EachCard = ({ el, placeofcall }) => {
 
       <Box className={styles.descrBox}>Weight: {el.weight}</Box>
       <Box className={styles.descrBox}>RS: {el.price}</Box>
-      <Box className={styles.qtyBox}>
+      { placeofcall=="cartpage" && <Box className={styles.qtyBox}>
         <Box
           disabled={el.qty == 1}
           onClick={async () => {
@@ -44,21 +44,21 @@ const EachCard = ({ el, placeofcall }) => {
         >
           +
         </Box>
-      </Box>
-      {addToCartBtnLoading ? (
-        <CircularProgress />
-      ) : (
-        <Box
+      </Box>}
+     
+        { placeofcall=="homepage" && <Box
           className={styles.addtocartBox}
-          onClick={() => {
-            handleAddToCart(el);
-            alert("Item added to your cart");
+          onClick={async () => {
+
+           let res= await handleAddToCart(el);
+           
+            alert(res.msg);
           }}
         >
           Add To Cart
-        </Box>
-      )}
-      <Box
+        </Box>}
+      
+      { placeofcall=="cartpage" && <Box
         className={styles.addtocartBox}
         onClick={async () => {
           let response = await handleDeleteData(el._id);
@@ -71,9 +71,9 @@ const EachCard = ({ el, placeofcall }) => {
         }}
       >
         DELETE
-      </Box>
+      </Box>}
 
-      <Box  className={styles.addtocartBox}>Track Status </Box>
+    {  placeofcall=="orderpage" &&  <Box  className={styles.addtocartBox}>Track Status </Box>}
     </Box>
   );
 };

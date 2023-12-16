@@ -5,7 +5,7 @@ const { UserModel } = require("../Models/User.model");
 
 const Signup = async (req, res) => {
   try {
-    const { name, email, address, password,usertype } = req.body;
+    const { name, email, address, password, usertype } = req.body;
     let existingUser = await UserModel.find({ email });
     if (existingUser.length > 0) {
       res.status(400).json({ msg: "USER ALREADY REGISTERED", status: false });
@@ -41,24 +41,10 @@ const Signup = async (req, res) => {
 
 const Login = async (req, res) => {
   try {
-    
     const { email, password } = await req.body;
     const registeredUser = await UserModel.findOne({ email });
-
-    if (registeredUser) {
-      if (password == password) {
-        const token = jwt.sign(
-          { userId: registeredUser._id },
-          process.env.SECRET
-        );
-
-        res.status(200).json({
-          msg: "Login successful",
-          status: true,
-          token,
-          user: { email: email },
-        });
-      } else {
+     if (registeredUser) 
+     {
         bcrypt.compare(
           password,
           registeredUser.password,
@@ -78,6 +64,7 @@ const Login = async (req, res) => {
               res.status(200).json({
                 msg: "Login successful",
                 status: true,
+                usertype: registeredUser.usertype,
                 token,
                 user: { email: email },
               });
@@ -88,7 +75,7 @@ const Login = async (req, res) => {
             }
           }
         );
-      }
+      
     } else {
       res.status(400).json({ msg: "USER NOT REGISTERED", status: false });
     }

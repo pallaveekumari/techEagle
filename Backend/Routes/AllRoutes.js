@@ -17,7 +17,7 @@ AllRoutes.post("/placeOrder", authorisation, orderPlaceByCustomer);
 AllRoutes.get("/trackStatus/:orderId", authorisation, trackOrderWithStatus);
 AllRoutes.get("/myOrders", authorisation, getMyOrders);
 AllRoutes.post("/addProduct", authorisation, addProductByManager);
-AllRoutes.delete("deleteProduct",authorisation,deleteTheProduct);
+AllRoutes.delete("/deleteProduct/:productId",authorisation,deleteTheProduct);
 AllRoutes.post("/updateStatus", authorisation, updateStatusOfProduct);
 AllRoutes.patch("/updateProduct/:prodId",authorisation,updateProduct);
 AllRoutes.get("getAllOrdersByCustomer",authorisation,getAllOrdersByCustomers);

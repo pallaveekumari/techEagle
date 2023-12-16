@@ -4,6 +4,7 @@ import NavBar from "../../Components/NavBar/NavBar";
 import { AppContext } from "../../Context/AppContext";
 import EachCard from "../../Components/EachCard/EachCard";
 import { Navigate, useNavigate } from "react-router-dom";
+import styles from "./CartPage.module.css";
 
 const CartPage = () => {
   const navigate=useNavigate()
@@ -13,14 +14,14 @@ const CartPage = () => {
     handleGetAllCartData();
   }, []);
   return (
-    <Box>
+    <Box className={styles.mainContainer}>
       <NavBar />
       {cartdataLoading ? (
         <CircularProgress />
       ) : (
-        <Box>
+        <Box className={styles.cardsContainer}>
           {cartdata.map((el) => {
-            return <EachCard el={el} />;
+            return <EachCard el={el} placeofcall={"cartpage"} />;
           })}
         </Box>
       )}

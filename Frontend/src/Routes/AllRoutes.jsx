@@ -5,6 +5,7 @@ import Login from './Login/Login'
 import Signup from './Signup/Signup'
 import CartPage from './CartPage/CartPage'
 import MyOrderPage from './MyOrderPage/MyOrderPage'
+import ManagerHomePage from './Dashboard/Manager/ManagerHomePage'
 
 const AllRoutes = () => {
   return (
@@ -14,6 +15,7 @@ const AllRoutes = () => {
 <Route path={"signup"} element={<Signup/>}/>
 <Route path={"/cart"} element={<CartPage/>}/>
 <Route path={"/orders"} element={<MyOrderPage/>}/>
+<Route path={"/manager"} element={<ManagerHomePage/>}/>
 
     </Routes>
   )

@@ -1,7 +1,16 @@
 import React, { useContext, useState } from "react";
 
 import styles from "../Signup/Signup.module.css";
-import { Box, Button, CircularProgress, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import NavBar from "../../Components/NavBar/NavBar";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../Context/AppContext";
@@ -12,10 +21,10 @@ const Signup = () => {
     email: "",
     address: "",
     password: "",
-    usertype:""
+    usertype: "",
   };
 
-  const { handleAddsign,signupBtnLoading } = useContext(AppContext);
+  const { handleAddsign, signupBtnLoading } = useContext(AppContext);
 
   const [signupData, setSignupData] = useState(initial);
   const handleChange = (e) => {
@@ -34,16 +43,15 @@ const Signup = () => {
         <h1 className={styles.heading}>Signup</h1>
         <Box className={styles.childContainer}>
           <TextField
-          fullWidth
+            fullWidth
             placeholder="Enter Name"
             type="text"
             name="name"
             label="Name"
             onChange={handleChange}
-
           />
           <TextField
-          fullWidth
+            fullWidth
             placeholder="Enter Email"
             type="text"
             name="email"
@@ -51,7 +59,7 @@ const Signup = () => {
             onChange={handleChange}
           />
           <TextField
-          fullWidth
+            fullWidth
             placeholder="Enter Address"
             type="text"
             name="address"
@@ -59,7 +67,7 @@ const Signup = () => {
             onChange={handleChange}
           />
           <TextField
-          fullWidth
+            fullWidth
             placeholder="Enter Password"
             type="password"
             name="password"
@@ -67,38 +75,56 @@ const Signup = () => {
             onChange={handleChange}
           />
           <FormControl fullWidth>
-  <InputLabel id="demo-simple-select-label">UserType</InputLabel>
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    name="usertype"
-    label="UserType"
-    onChange={handleChange}
-  >
-    <MenuItem value={"customer"}>Customer</MenuItem>
-    <MenuItem value={"manager"}>Manager</MenuItem>
-    
-  </Select>
-</FormControl>
-          <Box className={styles.btn}>
-           {signupBtnLoading?<CircularProgress/>: <Button
-              variant="contained"
-              onClick={async () => {
-                let res = await handleAddsign(signupData);
-                if (res.status) {
-                  alert(res.msg);
-                  navigate("/login");
-                } else {
-                  alert(res.msg);
-                }
-              }}
+            <InputLabel id="demo-simple-select-label">UserType</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              name="usertype"
+              label="UserType"
+              onChange={handleChange}
             >
-              Submit
-            </Button>}
+              <MenuItem value={"customer"}>Customer</MenuItem>
+              <MenuItem value={"manager"}>Manager</MenuItem>
+            </Select>
+          </FormControl>
+          <Box className={styles.btn}>
+            {signupBtnLoading ? (
+              <CircularProgress />
+            ) : (
+              <Button
+                variant="contained"
+                onClick={async () => {
+                  if (
+                    signupData.name != "" ||
+                    signupData.email != "" ||
+                    signupData.address != "" ||
+                    signupData.password != "" ||
+                    signupData.usertype != ""
+                  ) {
+                    let res = await handleAddsign(signupData);
+                    if (res.status) {
+                      alert(res.msg);
+                      navigate("/login");
+                    } else {
+                      alert(res.msg);
+                    }
+                  }else{
+                    alert("Please Fill All Fields!")
+                  }
+                }}
+              >
+                Submit
+              </Button>
+            )}
 
-            <Button onClick={()=>{
-              navigate("/login")
-            }}variant="contained">Existing User : Login</Button>
+            <Button
+              onClick={() => {
+                navigate("/login");
+              }}
+              variant="contained"
+            >
+              Existing User : Login
+            </Button>
           </Box>
         </Box>
       </Box>

@@ -14,18 +14,16 @@ const addCartData = async (req, res) => {
     const payload = req.body;
     const exist = await cartModel.findOne({
       userId: payload.userId,
-      title: payload.title,
+      name: payload.name,
     });
 
-    console.log("Payload:", payload);
-    console.log("Exist:", exist);
-
+    
     if (!exist) {
       delete payload["_id"];
-      // console.log("updated payload ",payload);
+     
       const updatecartdata = new cartModel(payload);
 
-      // Attempt to save the data
+     
       try {
         await updatecartdata.save();
         console.log("Data saved successfully");

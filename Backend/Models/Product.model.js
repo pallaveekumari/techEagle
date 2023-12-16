@@ -4,7 +4,8 @@ const productSchema = mongoose.Schema({
   image: { type: String },
   description: { type: String },
   weight: { type: String },
-  price: { type: Number },
+  price: { type: String },
+  qty: { type: String }
 });
 const productModel = mongoose.model("product", productSchema);
 module.exports = {

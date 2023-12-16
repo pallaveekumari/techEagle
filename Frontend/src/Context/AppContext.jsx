@@ -15,10 +15,15 @@ const AppContextProvider = ({ children }) => {
   const [deleteBtnLoading,setdeleteBtnLoading]=useState(false)
   const [MyOrdersLoading,setMyOrdersLoading]=useState(false)
   const [myorderdata,setmyorderdata]=useState([])
-  const [plusQtyBtnLoading,setplusQtyBtnLoading]=useState(false)
-  const [minusQtyBtnLoading,setminusQtyBtnLoading]=useState(false)
+  // const [plusQtyBtnLoading,setplusQtyBtnLoading]=useState(false)
+  // const [minusQtyBtnLoading,setminusQtyBtnLoading]=useState(false)
   const [OrdersPlacedLoading,setOrdersPlacedLoading]=useState(false)
   const [myorderplaceddata,setmyorderplaceddata]=useState([])
+  const [TrackStatusLoading,setTrackStatusLoading]=useState(false)
+  const [allordersForManagers,setAllOrdersForManagers] = useState([]);
+  const [statusOfOrder,setStatusOfOrder] = useState({});
+
+ 
   const handleAddsign = async (signupdata) => {
     try {
       setsignupBtnLoading(true);
@@ -39,7 +44,7 @@ const AppContextProvider = ({ children }) => {
     try {
       setloginBtnLoading(true);
       let res = await axios.post(
-        "https://techeagle-dptt.onrender.com/login",
+        "http://localhost:8000/login",
         payload
       );
       setloginBtnLoading(false);
@@ -57,7 +62,7 @@ const AppContextProvider = ({ children }) => {
       const token = Cookies.get("token");
       if (token) {
         let data = await axios.post(
-          "https://techeagle-dptt.onrender.com/addtocart",
+          "http://localhost:8000/addtocart",
           payload,
           {
             headers: {
@@ -67,6 +72,8 @@ const AppContextProvider = ({ children }) => {
         );
         // console.log("data",data);
         setaddToCartBtnLoading(false);
+        handleGetAllCartData()
+        console.log("Data",data)
         return data.data;
       } else {
         alert("You're Not Logged In Please login first!");
@@ -198,6 +205,158 @@ const AppContextProvider = ({ children }) => {
       return err.response.data;
     }
   }
+
+
+const handleTrackStatus=async(orderId)=>{
+ 
+    try {
+      setTrackStatusLoading(true)
+      const token = Cookies.get("token");
+      let data = await axios.get(
+        `https://techeagle-dptt.onrender.com/trackStatus/${orderId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setTrackStatusLoading(false)
+      return data.data;
+    } catch (err) {
+      console.log("error", err);
+      setTrackStatusLoading(false)
+      return err.response.data;
+    }
+  
+}
+
+const handleAddProduct = async (payload) => {
+  try {
+    const token = Cookies.get("token");
+    let data = await axios.post(`http://localhost:8000/addProduct`, payload, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(data);
+    return data.status;
+  } catch (err) {
+    console.log("FAILED TO ADD THE PRODUCT ", err);
+    return err.response.status;
+  }
+};
+
+
+const handleDeleteProductByManager = async (productId) => {
+  try {
+    const token = Cookies.get("token");
+    let data = await axios.delete(
+      `http://localhost:8000/deleteProduct/${productId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+
+    console.log(data.status);
+    return data.status;
+  } catch (err) {
+    console.log("FAILED TO DELETE THE PRODUCT ", err);
+    return err.response.status;
+  }
+};
+
+
+
+
+
+const handleUpdateQuantityByManager = async (prodId, newQty) => {
+  try {
+    const token = Cookies.get("token");
+    let data = await axios.patch(
+      `http://localhost:8000/updateProduct/${prodId}`,
+      {
+        newQty: newQty,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(data.status);
+    return data.status
+  } catch (err) {
+    console.log("FAILED TO UPDATE QTY ", err);
+    return err.response.status;
+  }
+};
+
+
+const getAllOrdersForManagers =async ()=>{
+  try{
+    const token = Cookies.get("token");
+    let data = await axios.patch(
+      `http://localhost:8000/getAllOrdersByCustomer`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    setAllOrdersForManagers(data.data.allOrders)
+    return data.status;
+  }catch(err){
+    console.log('FAILED TO GET ALL ORDERS');
+    return err.response.status
+  }
+}
+
+
+const getOrderStatus = async (prodId)=>{
+  try{
+    const token = Cookies.get("token");
+    let data = await axios.patch(
+      `http://localhost:8000/trackStatus/${prodId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    setStatusOfOrder(data.data.details);
+    return data.status
+  }catch(err){
+    console.log('FAILED TO GET ORDER STATUS ',err);
+    return err.response.status
+  }
+}
+
+
+const handleUpdateStatus = async (payload)=>{
+  try{
+    const token = Cookies.get("token");
+    let data = await axios.patch(
+      `http://localhost:8000/updateStatus`,payload,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    // setStatusOfOrder(data.data.details);
+    return data.status;
+  }catch(err){
+    console.log('FAILED TO UPDATE ORDER STATUS ',err);
+    return err.response.status
+  }
+}
+
+
+
+
   return (
     <AppContext.Provider
       value={{
@@ -220,7 +379,18 @@ const AppContextProvider = ({ children }) => {
         getMyOrders,
         myorderdata,
         myorderplaceddata,
-        getOrderPlaced
+        getOrderPlaced,
+        TrackStatusLoading,
+        handleTrackStatus,
+        OrdersPlacedLoading,
+        handleDeleteProductByManager,
+        handleUpdateStatus,
+        allordersForManagers,
+        statusOfOrder,
+        handleAddProduct,
+        getOrderStatus,
+        getAllOrdersForManagers,
+        handleUpdateQuantityByManager
         
       }}
     >

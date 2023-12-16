@@ -17,7 +17,7 @@ const MyOrderPage = () => {
             {
                myorderdata.map((el)=>{
                 return (
-                    <EachCard el={el}/>
+                    <EachCard el={el} placeofcall={"orderpage"} />
                 )
                }) 
             }

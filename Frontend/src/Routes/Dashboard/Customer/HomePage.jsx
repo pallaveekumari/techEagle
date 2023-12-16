@@ -7,14 +7,15 @@ import styles from "../Customer/HomePage.module.css";
 import { AppContext } from "../../../Context/AppContext";
 import CircularProgress from '@mui/material/CircularProgress';
 const HomePage = () => {
-  const { getProductdata, homepageDataloading, productdata } = useContext(AppContext);
+  const { getProductdata, homepageDataloading, productdata ,handleGetAllCartData} = useContext(AppContext);
   useEffect(() => {
     getProductdata()
+    handleGetAllCartData()
   },[]);
   return (
     <Box>
       <NavBar />
-      <Box className={styles.container}>
+      <Box className={styles.mainContainer}>
         <img
           className={styles.containerimg}
           src="https://www.shutterstock.com/image-photo/dark-drone-flight-over-city-600nw-1372546655.jpg"
@@ -22,9 +23,9 @@ const HomePage = () => {
         />
       </Box>
       {homepageDataloading ? <CircularProgress/>:
-      <Box>
+      <Box className={styles.cardsContainer}>
         {productdata.map((el) => {
-          return <EachCard el={el} />;
+          return <EachCard el={el}  placeofcall={"homepage"} />;
         })}
       </Box>}
     </Box>
