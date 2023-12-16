@@ -52,6 +52,7 @@ const {cartdata}=useContext(AppContext)
             navigate("/orders");
           }}>My Orders</Box>
       </Box>
+      <Box>All Orders</Box>
     </Box>
   );
 };

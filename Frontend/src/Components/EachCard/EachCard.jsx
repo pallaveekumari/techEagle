@@ -1,15 +1,24 @@
 import { Box, CircularProgress } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./EachCard.module.css";
 import { AppContext } from "../../Context/AppContext";
+import TrackOrder from "../Popups/TrackOrder/TrackOrder";
 const EachCard = ({ el, placeofcall }) => {
   const {
     handleAddToCart,
     handleqty,
     handleGetAllCartData,
     handleDeleteData,
-    addToCartBtnLoading,
+    getOrderStatus
   } = useContext(AppContext);
+  const [openTrackOrder,setOpenTrackOrder] = useState(false);
+
+  const handleOpenTrackOrderPopup = ()=>{
+    setOpenTrackOrder(true)
+}
+const handleCloseTrackOrderPopup = ()=>{
+  setOpenTrackOrder(false);
+}
   return (
     <Box className={styles.container}>
       <Box className={styles.imagebox}>
@@ -73,7 +82,18 @@ const EachCard = ({ el, placeofcall }) => {
         DELETE
       </Box>}
 
-    {  placeofcall=="orderpage" &&  <Box  className={styles.addtocartBox}>Track Status </Box>}
+    {  placeofcall=="orderpage" &&  <Box  onClick={async ()=>{
+      let res=await getOrderStatus(el._id)
+      if(res==200){
+        handleOpenTrackOrderPopup()
+      }
+      else{
+        alert("Something Went Wrong !...")
+      }
+
+    }}className={styles.addtocartBox}>Track Status </Box>}
+
+<TrackOrder open={openTrackOrder} handleClose={handleCloseTrackOrderPopup} />
     </Box>
   );
 };

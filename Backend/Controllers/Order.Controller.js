@@ -7,14 +7,16 @@ const { UserModel } = require("../Models/User.model");
 const orderPlaceByCustomer = async (req, res) => {
 try {
   let payload = req.body;
-  let updatedPayload = payload.orders.map((el, i) => {
+  // console.log(payload)
+  let updatedPayload = payload.map((el, i) => {
     return { ...el, userId: payload.userId, status: "order placed" };
   });
+  // console.log("UpdatePayload",updatedPayload)
   let result = await OrderModel.insertMany(updatedPayload);
   console.log("result is ", result);
   res.status(200).json({ msg: "order placed" });
 } catch (err) {
-  res.send(500).json({ msg: "SOMETHING WENT WRONG WHILE PLACING ORDER" });
+  res.status(500).json({ msg: "SOMETHING WENT WRONG WHILE PLACING ORDER" });
 }
 };
 

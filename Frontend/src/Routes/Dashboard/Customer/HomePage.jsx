@@ -15,6 +15,7 @@ const HomePage = () => {
   return (
     <Box>
       <NavBar />
+      <h1>Customer</h1>
       <Box className={styles.mainContainer}>
         <img
           className={styles.containerimg}

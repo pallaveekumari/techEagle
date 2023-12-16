@@ -28,6 +28,7 @@ const ManagerHomePage = ()=>{
    return (
        <Box className={styles.mainContainer} >
            <NavBar/>
+           <h1>Manager</h1>
            <Box className={styles.addProductButtonContainer}>
                <Button variant="contained" onClick={handleOpenAddProd} > Add Product </Button>
            </Box>

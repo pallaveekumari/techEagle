@@ -8,7 +8,7 @@ import styles from "./CartPage.module.css";
 
 const CartPage = () => {
   const navigate=useNavigate()
-  const { handleGetAllCartData, cartdataLoading, cartdata } =
+  const { handleGetAllCartData, cartdataLoading, cartdata,getOrderPlaced } =
     useContext(AppContext);
   useEffect(() => {
     handleGetAllCartData();
@@ -27,8 +27,15 @@ const CartPage = () => {
       )}
 
 {cartdata.length>0 && 
-<Button variant="contained" onClick={()=>{
-  navigate("/orders")
+<Button variant="contained" onClick={async ()=>{
+  let res=await getOrderPlaced()
+  if(res==200){
+    alert("Your Order has been placed successfully")
+    navigate("/orders")
+  }
+  else{
+    alert("Something went wrong while placing the order")
+  }
 }}>
   Place Order
 </Button>}

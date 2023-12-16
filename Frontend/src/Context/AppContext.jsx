@@ -190,45 +190,28 @@ const AppContextProvider = ({ children }) => {
       setOrdersPlacedLoading(true)
       const token = Cookies.get("token");
       let data = await axios.post(
-        `https://techeagle-dptt.onrender.com/placeOrder`,cartdata,
+        `http://localhost:8000/placeOrder`,cartdata,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
+      for(let el of cartdata){
+        handleDeleteData(el._id)
+      }
       setOrdersPlacedLoading(false)
       setmyorderplaceddata(data.data);
+      return data.status;
     } catch (err) {
       console.log("error", err);
       setOrdersPlacedLoading(false)
-      return err.response.data;
+      return err.response.status;
     }
   }
 
 
-const handleTrackStatus=async(orderId)=>{
- 
-    try {
-      setTrackStatusLoading(true)
-      const token = Cookies.get("token");
-      let data = await axios.get(
-        `https://techeagle-dptt.onrender.com/trackStatus/${orderId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setTrackStatusLoading(false)
-      return data.data;
-    } catch (err) {
-      console.log("error", err);
-      setTrackStatusLoading(false)
-      return err.response.data;
-    }
-  
-}
+
 
 const handleAddProduct = async (payload) => {
   try {
@@ -317,8 +300,9 @@ const getAllOrdersForManagers =async ()=>{
 
 const getOrderStatus = async (prodId)=>{
   try{
+    setTrackStatusLoading(true)
     const token = Cookies.get("token");
-    let data = await axios.patch(
+    let data = await axios.get(
       `http://localhost:8000/trackStatus/${prodId}`,
       {
         headers: {
@@ -327,9 +311,11 @@ const getOrderStatus = async (prodId)=>{
       }
     );
     setStatusOfOrder(data.data.details);
+    setTrackStatusLoading(false)
     return data.status
   }catch(err){
     console.log('FAILED TO GET ORDER STATUS ',err);
+    setTrackStatusLoading(false)
     return err.response.status
   }
 }
@@ -381,7 +367,6 @@ const handleUpdateStatus = async (payload)=>{
         myorderplaceddata,
         getOrderPlaced,
         TrackStatusLoading,
-        handleTrackStatus,
         OrdersPlacedLoading,
         handleDeleteProductByManager,
         handleUpdateStatus,
