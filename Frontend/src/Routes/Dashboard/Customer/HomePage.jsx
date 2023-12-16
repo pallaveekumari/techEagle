@@ -15,7 +15,7 @@ const HomePage = () => {
   return (
     <Box>
       <NavBar />
-      <h1>Customer</h1>
+      <h1 style={{textAlign:'center'}} >Customer</h1>
       <Box className={styles.mainContainer}>
         <img
           className={styles.containerimg}
@@ -26,7 +26,7 @@ const HomePage = () => {
       {homepageDataloading ? <CircularProgress/>:
       <Box className={styles.cardsContainer}>
         {productdata.map((el) => {
-          return <EachCard el={el}  placeofcall={"homepage"} />;
+          return <EachCard el={el}  placeofcall={"homepage"} key={i}/>;
         })}
       </Box>}
     </Box>

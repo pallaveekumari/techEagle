@@ -12,12 +12,13 @@ const MyOrderPage = () => {
   return (
     <Box className={styles.mainContainer}>
         <NavBar/>
+        <h1 style={{textAlign:'center'}} >My Orders Page</h1>
         {MyOrdersLoading?<CircularProgress/>:
         <Box className={styles.cardsContainer}>
             {
                myorderdata.map((el)=>{
                 return (
-                    <EachCard el={el} placeofcall={"orderpage"} />
+                    <EachCard el={el} placeofcall={"orderpage"} key={i} />
                 )
                }) 
             }

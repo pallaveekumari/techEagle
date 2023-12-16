@@ -16,12 +16,13 @@ const CartPage = () => {
   return (
     <Box className={styles.mainContainer}>
       <NavBar />
+      <h1 style={{textAlign:'center'}} >Cart Page</h1>
       {cartdataLoading ? (
         <CircularProgress />
       ) : (
         <Box className={styles.cardsContainer}>
           {cartdata.map((el) => {
-            return <EachCard el={el} placeofcall={"cartpage"} />;
+            return <EachCard el={el} placeofcall={"cartpage"} key={i} />;
           })}
         </Box>
       )}

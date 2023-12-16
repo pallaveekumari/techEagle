@@ -36,7 +36,7 @@ const Signup = () => {
   };
   return (
     <Box>
-      <NavBar />
+      <NavBar placeofcall='signup'/>
 
       <Box className={styles.container}>
         <h2 className={styles.firstcontainer}>Looks Like You're New here !</h2>

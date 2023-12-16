@@ -1,0 +1,12 @@
+img{
+    height: 300px;
+    width: 400px;
+ }
+ .text{
+    font-weight: bold;
+    text-align: center;
+ }
+ .text:nth-child(5){
+    color: green;
+ }
+ 
