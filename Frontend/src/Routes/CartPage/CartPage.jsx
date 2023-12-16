@@ -21,7 +21,7 @@ const CartPage = () => {
         <CircularProgress />
       ) : (
         <Box className={styles.cardsContainer}>
-          {cartdata.map((el) => {
+          {cartdata.map((el,i) => {
             return <EachCard el={el} placeofcall={"cartpage"} key={i} />;
           })}
         </Box>

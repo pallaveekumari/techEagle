@@ -16,7 +16,7 @@ const MyOrderPage = () => {
         {MyOrdersLoading?<CircularProgress/>:
         <Box className={styles.cardsContainer}>
             {
-               myorderdata.map((el)=>{
+               myorderdata.map((el,i)=>{
                 return (
                     <EachCard el={el} placeofcall={"orderpage"} key={i} />
                 )

@@ -25,7 +25,7 @@ const HomePage = () => {
       </Box>
       {homepageDataloading ? <CircularProgress/>:
       <Box className={styles.cardsContainer}>
-        {productdata.map((el) => {
+        {productdata.map((el,i) => {
           return <EachCard el={el}  placeofcall={"homepage"} key={i}/>;
         })}
       </Box>}

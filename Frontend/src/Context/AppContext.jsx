@@ -45,7 +45,7 @@ const AppContextProvider = ({ children }) => {
    try {
      setloginBtnLoading(true);
      let res = await axios.post(
-       "http://localhost:8000/login",
+       "https://techeagle-dptt.onrender.com/login",
        payload
      );
      setloginBtnLoading(false);
@@ -66,7 +66,7 @@ const AppContextProvider = ({ children }) => {
      const token = Cookies.get("token");
      if (token) {
        let data = await axios.post(
-         "http://localhost:8000/addtocart",
+         "https://techeagle-dptt.onrender.com/addtocart",
          payload,
          {
            headers: {
@@ -207,7 +207,7 @@ const AppContextProvider = ({ children }) => {
      setOrdersPlacedLoading(true)
      const token = Cookies.get("token");
      let data = await axios.post(
-       `http://localhost:8000/placeOrder`,cartdata,
+       `https://techeagle-dptt.onrender.com/placeOrder`,cartdata,
        {
          headers: {
            Authorization: `Bearer ${token}`,
@@ -237,7 +237,7 @@ const AppContextProvider = ({ children }) => {
 const handleAddProduct = async (payload) => {
  try {
    const token = Cookies.get("token");
-   let data = await axios.post(`http://localhost:8000/addProduct`, payload, {
+   let data = await axios.post(`https://techeagle-dptt.onrender.com/addProduct`, payload, {
      headers: {
        Authorization: `Bearer ${token}`,
      },
@@ -257,7 +257,7 @@ const handleDeleteProductByManager = async (productId) => {
  try {
    const token = Cookies.get("token");
    let data = await axios.delete(
-     `http://localhost:8000/deleteProduct/${productId}`,
+     `https://techeagle-dptt.onrender.com/deleteProduct/${productId}`,
      {
        headers: {
          Authorization: `Bearer ${token}`,
@@ -289,7 +289,7 @@ const handleUpdateQuantityByManager = async (prodId, newQty) => {
  try {
    const token = Cookies.get("token");
    let data = await axios.patch(
-     `http://localhost:8000/updateProduct/${prodId}`,
+     `https://techeagle-dptt.onrender.com/updateProduct/${prodId}`,
      {
        newQty: newQty,
      },
@@ -314,7 +314,7 @@ const getAllOrdersForManagers =async ()=>{
  try{
    const token = Cookies.get("token");
    let data = await axios.get(
-     `http://localhost:8000/getAllOrdersByCustomer`,
+     `https://techeagle-dptt.onrender.com/getAllOrdersByCustomer`,
      {
        headers: {
          Authorization: `Bearer ${token}`,
@@ -337,7 +337,7 @@ const getOrderStatus = async (prodId)=>{
    setTrackStatusLoading(true)
    const token = Cookies.get("token");
    let data = await axios.get(
-     `http://localhost:8000/trackStatus/${prodId}`,
+     `https://techeagle-dptt.onrender.com/trackStatus/${prodId}`,
      {
        headers: {
          Authorization: `Bearer ${token}`,
@@ -361,7 +361,7 @@ const handleUpdateStatus = async (payload)=>{
  try{
    const token = Cookies.get("token");
    let data = await axios.patch(
-     `http://localhost:8000/updateStatus`,payload,
+     `https://techeagle-dptt.onrender.com/updateStatus`,payload,
      {
        headers: {
          Authorization: `Bearer ${token}`,
