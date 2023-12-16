@@ -1,4 +1,4 @@
-# Simfoni Clone Project 
+# TECH EAGLE Project 
 
 Hello Everyone !🌏 I am Pallavee Kumari and I am presenting my individual project Assignment of TECH EAGLE Company.
 
@@ -72,9 +72,6 @@ TechEagle is enabling last-mile goods(Healthcare products, Food, Parcels, etc.) 
   ![App Screenshot](https://github.com/pallaveekumari/simfoni/blob/master/src/screenshots/productDetails.png?raw=true?raw=true)
 
  
-- ### Footer 
-![App Screenshot](https://github.com/pallaveekumari/simfoni/blob/master/src/screenshots/footer.png?raw=true?raw=true)
-
 
 - ### ResponsiveView Pages
 
