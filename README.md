@@ -42,7 +42,8 @@ TechEagle is enabling last-mile goods(Healthcare products, Food, Parcels, etc.) 
  - ### All Orders For Manager.
    #### manager can see all the products placed by the users and can update their status.
 
-
+ - ### Responsiveness
+  #### all pages are responsive for both view mobile and tablets.
 
  
  ## Tech Stack
